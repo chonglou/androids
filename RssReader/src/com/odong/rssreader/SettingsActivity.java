@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.*;
 import com.odong.rssreader.store.Storage;
 
 /**
@@ -20,6 +18,7 @@ public class SettingsActivity extends Activity {
 
         initRefresh();
         initKeep();
+        initNotice();
 
     }
 
@@ -71,7 +70,19 @@ public class SettingsActivity extends Activity {
         });
     }
 
+    private void initNotice(){
+        Switch notice = (Switch)findViewById(R.id.sw_setting_notice);
 
-    private int[] refresh_items = {10 * 60, 30 * 60, 60 * 60, 6 * 60 * 60, 12 * 60 * 60, 24 * 60 * 60};
-    private int[] keep_items = {50, 200, 500, 1000};
+        String val = new Storage(getApplicationContext()).get("notice.enable");
+        notice.setChecked(val == null || Boolean.parseBoolean(val));
+
+        notice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                new Storage(getApplicationContext()).set("notice.enable", Boolean.toString(isChecked));
+            }
+        });
+    }
+
+
 }
