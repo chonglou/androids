@@ -12,6 +12,7 @@
 
     <string name="dlg_addFeed_title">源地址</string>
     <string name="dlg_exit_message">你确定要退出么？</string>
+    <string name="dlg_error">出错了！</string>
 
     <string name="btn_ok">确定</string>
     <string name="btn_cancel">取消</string>

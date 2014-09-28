@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import com.odong.rssreader.store.Storage;
+import com.odong.rssreader.utils.Rss;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,10 +42,10 @@ public class MainActivity extends Activity {
                 onAddFeed();
                 break;
             case R.id.action_help:
-                onMessage(R.string.help_title, R.string.help_body);
+                onMessage(R.string.help_title, R.string.help_body, R.drawable.ic_action_about);
                 break;
             case R.id.action_about:
-                onMessage(R.string.about_title, R.string.about_body);
+                onMessage(R.string.about_title, R.string.about_body, R.drawable.ic_action_help);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -99,10 +100,11 @@ public class MainActivity extends Activity {
                 .show();
     }
 
-    private void onMessage(int title, int body) {
+    private void onMessage(int title, int body, int icon) {
         Intent intent = new Intent(this, MessageActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("body", body);
+        intent.putExtra("icon", icon);
         startActivity(intent);
     }
 
@@ -118,11 +120,22 @@ public class MainActivity extends Activity {
                 .setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //todo
-                        String value = input.getText().toString();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Rss rss = new Rss(input.getText().toString());
+                                    Storage store = new Storage(getApplicationContext());
+                                    int fid = store.addFeed(rss.getChannel());
+                                    store.addItems(fid, rss.getItemList());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+
                     }
                 })
-
                 .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

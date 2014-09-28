@@ -70,8 +70,8 @@ public class SettingsActivity extends Activity {
         });
     }
 
-    private void initNotice(){
-        Switch notice = (Switch)findViewById(R.id.sw_setting_notice);
+    private void initNotice() {
+        Switch notice = (Switch) findViewById(R.id.sw_setting_notice);
 
         String val = new Storage(getApplicationContext()).get("notice.enable");
         notice.setChecked(val == null || Boolean.parseBoolean(val));
