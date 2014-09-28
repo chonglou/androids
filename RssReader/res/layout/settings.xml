@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:divider="?android:dividerHorizontal"
+              android:showDividers="middle"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:text="@string/sp_title_settings_refresh"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <Spinner
+                android:id="@+id/sp_settings_refresh"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:orientation="horizontal"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:text="@string/sp_title_settings_keep"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <Spinner
+                android:id="@+id/sp_settings_keep"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:text="@string/settings_notice"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <Switch
+                android:id="@+id/sw_setting_notice"
+                android:layout_alignParentRight="true"
+                android:textOn="@string/btn_on"
+                android:textOff="@string/btn_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+
+
+</LinearLayout>
