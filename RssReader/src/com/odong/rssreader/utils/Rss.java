@@ -1,6 +1,5 @@
 package com.odong.rssreader.utils;
 
-import android.util.Log;
 import android.util.Xml;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

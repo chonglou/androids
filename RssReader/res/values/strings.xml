@@ -1,56 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">RSS阅读器</string>
+    <string name="app_name">Rss Reader</string>
 
-    <string name="lbl_unread">未读</string>
+    <string name="lbl_unread">Unread</string>
 
-    <string name="activity_name_settings">设置</string>
+    <string name="activity_name_settings">Settings</string>
 
-    <string name="exception_network">网络错误！</string>
-    <string name="exception_xml_parser">XML解析错误！</string>
+    <string name="exception_network">Network error！</string>
+    <string name="exception_xml_parser">XML parse error！</string>
 
-    <string name="action_add_feed">添加源</string>
-    <string name="action_refresh">刷新</string>
-    <string name="action_settings">设置</string>
-    <string name="action_help">帮助</string>
-    <string name="action_about">关于</string>
+    <string name="action_add_feed">Add feed</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_help">Help</string>
+    <string name="action_about">About Me</string>
 
-    <string name="dlg_addFeed_title">源地址</string>
-    <string name="dlg_exit_message">你确定要退出么？</string>
-    <string name="dlg_error_title">出错了！</string>
-    <string name="dlg_delete_title">你确定要删除该项么？</string>
+    <string name="dlg_addFeed_title">URL</string>
+    <string name="dlg_exit_message">Are you sure to quit?</string>
+    <string name="dlg_error_title">Error!</string>
+    <string name="dlg_delete_title">Are you sure to delete this item？</string>
 
 
-    <string name="btn_ok">确定</string>
-    <string name="btn_cancel">取消</string>
-    <string name="btn_yes">是</string>
-    <string name="btn_no">否</string>
-    <string name="btn_on">开启</string>
-    <string name="btn_off">关闭</string>
-    <string name="btn_load_more">点击加载更多</string>
+    <string name="btn_ok">Ok</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_yes">Yes</string>
+    <string name="btn_no">No</string>
+    <string name="btn_on">Enable</string>
+    <string name="btn_off">Close</string>
 
-    <string name="help_title">帮助信息</string>
-    <string name="help_body">帮助内容</string>
-    <string name="about_title">关于我们</string>
-    <string name="about_body">关于内容</string>
+    <string name="help_title">Help title</string>
+    <string name="help_body">Help content</string>
+    <string name="about_title">About title</string>
+    <string name="about_body">About content</string>
 
-    <string name="settings_notice">消息通知</string>
+    <string name="settings_notice">Notice</string>
 
-    <string name="sp_title_settings_refresh">刷新间隔</string>
+    <string name="sp_title_settings_refresh">Refresh every</string>
     <string-array name="sp_items_settings_refresh">
-        <item>10分钟</item>
-        <item>半小时</item>
-        <item>1小时</item>
-        <item>6小时</item>
-        <item>12小时</item>
-        <item>一天</item>
+        <item>10 Minutes</item>
+        <item>half an hour</item>
+        <item>1 hour</item>
+        <item>6 hours</item>
+        <item>12 hours</item>
+        <item>One day</item>
     </string-array>
 
-    <string name="sp_title_settings_keep">显示最近</string>
+    <string name="sp_title_settings_keep">Keep</string>
     <string-array name="sp_items_settings_keep">
-        <item>50条</item>
-        <item>200条</item>
-        <item>500条</item>
-        <item>1000条</item>
+        <item>50 items</item>
+        <item>200 items</item>
+        <item>500 items</item>
+        <item>1000 items</item>
     </string-array>
 </resources>

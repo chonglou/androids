@@ -11,8 +11,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.*;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import com.odong.rssreader.store.Storage;
 import com.odong.rssreader.utils.Rss;
 import org.xmlpull.v1.XmlPullParserException;
@@ -129,8 +131,8 @@ public class FeedActivity extends Activity {
         lv.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
-                    if(view.getLastVisiblePosition() == (view.getCount()-1)){
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
                         loadMore();
                     }
                 }
@@ -164,8 +166,8 @@ public class FeedActivity extends Activity {
 
         String title = lvItems.get(position).get("title");
         String unread = getString(R.string.lbl_unread);
-        if(title.indexOf(unread) == 1){
-            title = title.substring(unread.length()+2);
+        if (title.indexOf(unread) == 1) {
+            title = title.substring(unread.length() + 2);
         }
 
         intent.putExtra("title", title);
@@ -183,13 +185,14 @@ public class FeedActivity extends Activity {
         lvItemAdapter.notifyDataSetChanged();
     }
 
-    private void loadMore(){
-        int offset = lvIds.get(lvIds.size()-1);
-        Log.d("RSS READER", "加载"+offset);
+    private void loadMore() {
+        int offset = lvIds.get(lvIds.size() - 1);
+        Log.d("RSS READER", "加载" + offset);
         Storage storage = Storage.getInstance();
         storage.listItem(feedId, offset, Constants.ITEM_PAGE, callback);
         lvItemAdapter.notifyDataSetChanged();
     }
+
     private int feedId;
 
     private List<Map<String, String>> lvItems;
