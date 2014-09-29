@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -62,7 +61,7 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.main_activity);
 
         initFeedList();
 
@@ -129,7 +128,7 @@ public class MainActivity extends Activity {
                                     Rss rss = new Rss(input.getText().toString());
                                     Storage store = new Storage(getApplicationContext());
                                     int fid = store.addFeed(rss.getChannel());
-                                    //store.addItems(fid, rss.getItemList());
+                                    store.addItems(fid, rss.getItemList());
                                     msg.obj = "SUCCESS";
                                 } catch (XmlPullParserException e) {
                                     msg.obj = getString(R.string.exception_xml_parser);
@@ -137,9 +136,7 @@ public class MainActivity extends Activity {
                                     msg.obj = getString(R.string.exception_network);
                                 } catch (Exception e) {
                                     e.printStackTrace();
-
                                     msg.obj = e.getMessage();
-
                                 }
 
                                 handler.sendMessage(msg);
@@ -152,7 +149,7 @@ public class MainActivity extends Activity {
                 .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //todo
+
                     }
                 })
                 .show();
@@ -167,14 +164,17 @@ public class MainActivity extends Activity {
         lvFeedIds = new ArrayList<Integer>();
 
 
-        lvFeedAdapter = new SimpleAdapter(this, lvFeedItems, R.layout.feed, new String[]{"title", "summary"}, new int[]{R.id.feed_title, R.id.feed_summary});
+        lvFeedAdapter = new SimpleAdapter(this, lvFeedItems, R.layout.list_item, new String[]{"title", "summary"}, new int[]{R.id.item_title, R.id.item_summary});
         lvFeeds.setAdapter(lvFeedAdapter);
 
         //lv.setClickable(true);
         lvFeeds.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //todo
+                Intent intent = new Intent(MainActivity.this, FeedActivity.class);
+                intent.putExtra("id", lvFeedIds.get(position));
+                intent.putExtra("title", lvFeedItems.get(position).get("title"));
+                startActivity(intent);
             }
         });
 

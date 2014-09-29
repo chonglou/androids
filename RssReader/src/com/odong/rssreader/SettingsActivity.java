@@ -2,7 +2,6 @@ package com.odong.rssreader;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.odong.rssreader.store.Storage;
@@ -14,7 +13,7 @@ public class SettingsActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
+        setContentView(R.layout.settings_activity);
 
         initRefresh();
         initKeep();

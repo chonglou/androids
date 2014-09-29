@@ -1,5 +1,6 @@
 package com.odong.rssreader.utils;
 
+import android.util.Log;
 import android.util.Xml;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -94,21 +95,27 @@ public class Rss {
         Item item = new Item();
         parser.require(XmlPullParser.START_TAG, null, "item");
 
-        String name = parser.getName();
-        if (name.equals("title")) {
-            item.title = readString(parser, "title");
-        } else if (name.equals("link")) {
-            item.link = readString(parser, "link");
-        } else if (name.equals("pubDate")) {
-            item.pubDate = readString(parser, "pubDate");
-        } else if (name.equals("description")) {
-            item.description = readString(parser, "description");
-        } else {
-            skip(parser);
+        while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() != XmlPullParser.START_TAG) {
+                continue;
+            }
+            String name = parser.getName();
+            if (name.equals("title")) {
+                item.title = readString(parser, "title");
+            } else if (name.equals("link")) {
+                item.link = readString(parser, "link");
+            } else if (name.equals("pubDate")) {
+                item.pubDate = readString(parser, "pubDate");
+            } else if (name.equals("description")) {
+                item.description = readString(parser, "description");
+            } else {
+                skip(parser);
+            }
         }
-
         parser.require(XmlPullParser.END_TAG, null, "item");
         itemList.add(item);
+        parser.nextTag();
+
     }
 
 
