@@ -1,6 +1,10 @@
 Android APP项目
 =========
 
+### 项目列表
+ * RssReader: 一个简洁的Rss阅读器，支持二维码扫描录入.
+ * Pomodoro: 一个番茄软件，码农久坐不好，提醒自己起来活动。
+
 ### 开发环境（for ArchLinux）
 
 #### x86_64环境设置
@@ -29,7 +33,9 @@ Android APP项目
 	android list targets # 列出target
 	android create project --target <target-id> --name MyFirstApp --path <path-to-workspace>/MyFirstApp --activity MainActivity --package com.example.myfirstapp
 
-### 设备启动调试模式
+
+### 调试
+#### 设备启动
  * android版本小于3.2 点击 设置->应用->开发
  * android本本大于4.0小于4.2 点击 设置->开发者选项
  * android版本大于4.2 开发者选项默认隐藏。如果需要显示，需要点击 设置->关于手机，并连续点击版本号7次，然后返回上一页才可以看到开发者选项。
@@ -40,15 +46,15 @@ Android APP项目
  * 运行chmod a+r /etc/udev/rules.d/51-android.rules
 
 
-### 模拟器
+#### 模拟器
     dd bs=1M count=512 if=/dev/zero of=tmp/sd0 # 创建sd卡文件
     android avd # 创建并启动
 
-### 调试
+#### 调试
 		./install.sh RssReader # 调试RssReader
 		adb kill-server # 停止调试器
 
-### 编译release版
+#### 编译release版
 	cd RssReader
 	ant release
 
