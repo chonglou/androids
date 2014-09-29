@@ -63,6 +63,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        Storage.setContext(this);
         initFeedList();
 
     }
@@ -117,9 +118,9 @@ public class MainActivity extends Activity {
                                 Message msg = handler.obtainMessage();
                                 try {
                                     Rss rss = new Rss(input.getText().toString());
-                                    Storage store = new Storage(getApplicationContext());
-                                    int fid = store.addFeed(rss.getChannel());
-                                    store.addItems(fid, rss.getItemList());
+                                    Storage s = Storage.getInstance();
+                                    int fid = s.addFeed(rss.getChannel());
+                                    s.addItems(fid, rss.getItemList());
                                     msg.obj = Constants.SUCCESS;
                                 } catch (XmlPullParserException e) {
                                     e.printStackTrace();
@@ -157,7 +158,7 @@ public class MainActivity extends Activity {
         lvFeedIds = new ArrayList<Integer>();
 
 
-        lvFeedAdapter = new SimpleAdapter(this, lvFeedItems, R.layout.list_item, new String[]{"title", "summary"}, new int[]{R.id.item_title, R.id.item_summary});
+        lvFeedAdapter = new SimpleAdapter(this, lvFeedItems, R.layout.feed_list_item, new String[]{"title", "summary"}, new int[]{R.id.feed_list_item_title, R.id.feed_list_item_summary});
         lvFeeds.setAdapter(lvFeedAdapter);
 
         lvFeeds.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -179,7 +180,7 @@ public class MainActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                Storage s = new Storage(getApplicationContext());
+                                Storage s = Storage.getInstance();
                                 s.delFeed(lvFeedIds.get(position));
                                 refreshFeedList();
                             }
@@ -204,7 +205,7 @@ public class MainActivity extends Activity {
         lvFeedItems.clear();
         lvFeedIds.clear();
 
-        Storage storage = new Storage(this);
+        Storage storage = Storage.getInstance();
         storage.listFeed(new Storage.FeedCallback() {
             @Override
             public void run(int id, String title, String description, String lastSync) {

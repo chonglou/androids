@@ -1,7 +1,10 @@
 package com.odong.rssreader;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.webkit.WebView;
+import android.widget.TextView;
 
 /**
  * Created by flamen on 14-9-22.
@@ -11,5 +14,12 @@ public class ItemActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_activity);
+
+        Intent intent = getIntent();
+
+        setTitle(intent.getStringExtra("title"));
+
+        WebView content = (WebView) findViewById(R.id.item_content);
+        content.loadUrl(intent.getStringExtra("link"));
     }
 }

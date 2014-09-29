@@ -1,19 +1,20 @@
 package com.odong.rssreader;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import com.odong.rssreader.store.Storage;
 import com.odong.rssreader.utils.Rss;
 import org.xmlpull.v1.XmlPullParserException;
@@ -78,7 +79,7 @@ public class FeedActivity extends Activity {
             public void run() {
                 Message msg = handler.obtainMessage();
                 try {
-                    Storage s = new Storage(FeedActivity.this);
+                    Storage s = Storage.getInstance();
                     Rss rss = new Rss(s.getFeedUrl(feedId));
                     s.addItems(feedId, rss.getItemList());
                     msg.obj = Constants.SUCCESS;
@@ -105,17 +106,34 @@ public class FeedActivity extends Activity {
         lvIds = new ArrayList<Integer>();
 
 
-        lvItemAdapter = new SimpleAdapter(this, lvItems, R.layout.list_item, new String[]{"title", "summary"}, new int[]{R.id.item_title, R.id.item_summary});
+        lvItemAdapter = new SimpleAdapter(this, lvItems, R.layout.item_list_item, new String[]{"title", "summary"}, new int[]{R.id.item_list_item_title, R.id.item_list_item_summary});
+        lvItemAdapter.setViewBinder(new SimpleAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Object data, String textRepresentation) {
+                if (view instanceof WebView) {
+                    ((WebView) view).loadData(textRepresentation, "text/html", null);
+                    return true;
+                }
+                return false;
+            }
+        });
         lv.setAdapter(lvItemAdapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //todo
+                openItem(position);
             }
         });
 
         refreshItemList(0);
+    }
+
+    private void openItem(int position) {
+        Intent intent = new Intent(this, ItemActivity.class);
+        intent.putExtra("title", lvItems.get(position).get("title"));
+        intent.putExtra("link", lvLinks.get(position));
+        startActivity(intent);
     }
 
     private void refreshItemList(int offset) {
@@ -123,7 +141,7 @@ public class FeedActivity extends Activity {
         lvLinks.clear();
         lvIds.clear();
 
-        Storage storage = new Storage(this);
+        Storage storage = Storage.getInstance();
 
         storage.listItem(feedId, offset, Constants.ITEM_PAGE, new Storage.ItemCallback() {
             @Override

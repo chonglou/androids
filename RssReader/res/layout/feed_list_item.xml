@@ -7,12 +7,12 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
     <TextView
-            android:id="@+id/item_title"
+            android:id="@+id/feed_list_item_title"
             android:textSize="30sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     <TextView
-            android:id="@+id/item_summary"
+            android:id="@+id/feed_list_item_summary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 </LinearLayout>

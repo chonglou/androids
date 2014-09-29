@@ -113,7 +113,7 @@ public class Rss {
             }
         }
         parser.require(XmlPullParser.END_TAG, null, "item");
-        itemList.add(item);
+        itemList.add(0, item);
     }
 
 

@@ -15,7 +15,17 @@ import java.util.Map;
  * Created by flamen on 14-9-22.
  */
 public class Storage {
-    public Storage(Context context) {
+    public synchronized static void setContext(Context context) {
+        instance = new Storage(context);
+    }
+
+    public synchronized static Storage getInstance() {
+        return instance;
+    }
+
+    private static Storage instance;
+
+    private Storage(Context context) {
         helper = new DBHelper(context);
     }
 
@@ -24,7 +34,7 @@ public class Storage {
         cv.put("message", message);
         SQLiteDatabase db = getDb(true);
         db.insert("logs", null, cv);
-        db.close();
+
     }
 
     public String getFeedUrl(int id) {
@@ -35,7 +45,7 @@ public class Storage {
             return cur.moveToFirst() ? cur.getString(0) : null;
         } finally {
             cur.close();
-            db.close();
+
         }
     }
 
@@ -48,7 +58,7 @@ public class Storage {
             return cur.moveToFirst() ? cur.getInt(0) : null;
         } finally {
             cur.close();
-            db.close();
+
         }
     }
 
@@ -70,7 +80,7 @@ public class Storage {
             }
         } finally {
             cur.close();
-            db.close();
+
         }
     }
 
@@ -83,7 +93,7 @@ public class Storage {
             }
         } finally {
             cur.close();
-            db.close();
+
         }
     }
 
@@ -100,7 +110,7 @@ public class Storage {
                 db.insert("items", null, cv);
             }
         }
-        db.close();
+
     }
 
     public Integer getFeedId(String url) {
@@ -110,7 +120,7 @@ public class Storage {
             return cur.moveToFirst() ? cur.getInt(0) : null;
         } finally {
             cur.close();
-            db.close();
+
         }
     }
 
@@ -118,7 +128,7 @@ public class Storage {
         SQLiteDatabase db = getDb(true);
         db.delete("feeds", "id = ? ", new String[]{Integer.toString(id)});
         db.delete("items", "feed = ? ", new String[]{Integer.toString(id)});
-        db.close();
+
     }
 
     public int addFeed(Rss.Channel channel) {
@@ -135,7 +145,7 @@ public class Storage {
         } else {
             db.update("feeds", cv, "url = ?", new String[]{channel.url});
         }
-        db.close();
+
         return id;
     }
 
@@ -151,7 +161,7 @@ public class Storage {
         } else {
             db.update("settings", cv, "`key` = ?", new String[]{key});
         }
-        db.close();
+
     }
 
     public String get(String key) {
@@ -161,7 +171,7 @@ public class Storage {
             return cur.moveToFirst() ? cur.getString(0) : null;
         } finally {
             cur.close();
-            db.close();
+
         }
 
     }

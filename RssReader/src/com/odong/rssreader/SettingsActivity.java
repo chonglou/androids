@@ -29,13 +29,13 @@ public class SettingsActivity extends Activity {
 
         keep.setAdapter(adapter);
 
-        String sel = new Storage(getApplicationContext()).get("feed.keep.index");
+        String sel = Storage.getInstance().get("feed.keep.index");
         keep.setSelection(sel == null ? adapter.getCount() - 1 : Integer.parseInt(sel));
 
         keep.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                new Storage(getApplicationContext()).set("feed.keep.index", Integer.toString(position));
+                Storage.getInstance().set("feed.keep.index", Integer.toString(position));
             }
 
             @Override
@@ -53,13 +53,13 @@ public class SettingsActivity extends Activity {
 
         refresh.setAdapter(adapter);
 
-        String sel = new Storage(getApplicationContext()).get("refresh.space.index");
+        String sel = Storage.getInstance().get("refresh.space.index");
         refresh.setSelection(sel == null ? adapter.getCount() - 1 : Integer.parseInt(sel));
 
         refresh.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                new Storage(getApplicationContext()).set("refresh.space.index", Integer.toString(position));
+                Storage.getInstance().set("refresh.space.index", Integer.toString(position));
             }
 
             @Override
@@ -72,13 +72,13 @@ public class SettingsActivity extends Activity {
     private void initNotice() {
         Switch notice = (Switch) findViewById(R.id.sw_setting_notice);
 
-        String val = new Storage(getApplicationContext()).get("notice.enable");
+        String val = Storage.getInstance().get("notice.enable");
         notice.setChecked(val == null || Boolean.parseBoolean(val));
 
         notice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                new Storage(getApplicationContext()).set("notice.enable", Boolean.toString(isChecked));
+                Storage.getInstance().set("notice.enable", Boolean.toString(isChecked));
             }
         });
     }
