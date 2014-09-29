@@ -205,14 +205,15 @@ public class MainActivity extends Activity {
         lvFeedItems.clear();
         lvFeedIds.clear();
 
-        Storage storage = Storage.getInstance();
+        final Storage storage = Storage.getInstance();
         storage.listFeed(new Storage.FeedCallback() {
             @Override
             public void run(int id, String title, String description, String lastSync) {
                 lvFeedIds.add(id);
 
                 Map<String, String> v = new HashMap<String, String>();
-                v.put("title", title);
+
+                v.put("title", title + "(" + storage.countUnreadItem(id) + ")");
                 v.put("summary", description);
                 lvFeedItems.add(v);
             }

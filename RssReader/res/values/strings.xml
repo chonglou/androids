@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">RSS阅读器</string>
 
+    <string name="lbl_unread">未读</string>
+
     <string name="activity_name_settings">设置</string>
 
     <string name="exception_network">网络错误！</string>

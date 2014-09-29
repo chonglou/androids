@@ -122,6 +122,7 @@ public class FeedActivity extends Activity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Storage.getInstance().setItemRead(lvIds.get(position));
                 openItem(position);
             }
         });
@@ -131,7 +132,14 @@ public class FeedActivity extends Activity {
 
     private void openItem(int position) {
         Intent intent = new Intent(this, ItemActivity.class);
-        intent.putExtra("title", lvItems.get(position).get("title"));
+
+        String title = lvItems.get(position).get("title");
+        String unread = getString(R.string.lbl_unread);
+        if(title.indexOf(unread) == 1){
+            title = title.substring(unread.length()+2);
+        }
+
+        intent.putExtra("title", title);
         intent.putExtra("link", lvLinks.get(position));
         startActivity(intent);
     }
@@ -145,12 +153,12 @@ public class FeedActivity extends Activity {
 
         storage.listItem(feedId, offset, Constants.ITEM_PAGE, new Storage.ItemCallback() {
             @Override
-            public void run(int id, String link, String title, String description, String pubDate) {
+            public void run(int id, String link, String title, String description, String pubDate, boolean read) {
                 lvIds.add(id);
                 lvLinks.add(link);
 
                 Map<String, String> v = new HashMap<String, String>();
-                v.put("title", title);
+                v.put("title", read ? title : "[" + getString(R.string.lbl_unread) + "]" + title);
                 v.put("summary", Html.fromHtml(description).toString());
                 lvItems.add(v);
             }

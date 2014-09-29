@@ -45,7 +45,24 @@ public class Storage {
             return cur.moveToFirst() ? cur.getString(0) : null;
         } finally {
             cur.close();
+        }
+    }
 
+    public void setItemRead(int item) {
+        SQLiteDatabase db = getDb(true);
+        ContentValues cv = new ContentValues();
+        cv.put("read", 1);
+        db.update("items", cv, "id = ?", new String[]{Integer.toString(item)});
+    }
+
+    public int countUnreadItem(int feed) {
+        SQLiteDatabase db = getDb(false);
+        Cursor cur = db.rawQuery("SELECT COUNT(*) FROM items WHERE read=0 AND feed = ?", new String[]{Integer.toString(feed)});
+        try {
+            cur.moveToFirst();
+            return cur.getInt(0);
+        } finally {
+            cur.close();
         }
     }
 
@@ -67,16 +84,16 @@ public class Storage {
     }
 
     public interface ItemCallback {
-        void run(int id, String link, String title, String description, String pubDate);
+        void run(int id, String link, String title, String description, String pubDate, boolean read);
     }
 
     public void listItem(int feed, int offset, int page, ItemCallback callback) {
         SQLiteDatabase db = getDb(false);
-        Cursor cur = db.query("items", new String[]{"id", "link", "title", "description", "pubDate"}, "feed = ?", new String[]{Integer.toString(feed)}, null, null, "id DESC LIMIT " + page + " OFFSET " + offset);
+        Cursor cur = db.query("items", new String[]{"id", "link", "title", "description", "pubDate", "read"}, "feed = ?", new String[]{Integer.toString(feed)}, null, null, "id DESC LIMIT " + page + " OFFSET " + offset);
         try {
 
             while (cur.moveToNext()) {
-                callback.run(cur.getInt(0), cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4));
+                callback.run(cur.getInt(0), cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4), cur.getInt(5) == 1);
             }
         } finally {
             cur.close();
