@@ -9,7 +9,7 @@ import android.webkit.WebViewClient;
 /**
  * Created by flamen on 14-9-22.
  */
-public class ItemActivity extends Activity {
+public class ItemShowActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

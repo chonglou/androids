@@ -6,11 +6,13 @@
               android:paddingBottom="3dp"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
+
     <TextView
             android:id="@+id/feed_list_item_title"
             android:textSize="30sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
     <TextView
             android:id="@+id/feed_list_item_summary"
             android:layout_width="match_parent"

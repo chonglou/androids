@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * Created by flamen on 14-9-22.
  */
-public class FeedActivity extends Activity {
+public class FeedShowActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,7 +52,7 @@ public class FeedActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.feed_activity);
+        setContentView(R.layout.feed_show_activity);
 
         Intent intent = getIntent();
         feedId = intent.getIntExtra("id", 1);
@@ -70,7 +70,7 @@ public class FeedActivity extends Activity {
                 if (msg.equals(Constants.SUCCESS)) {
                     refreshItemList();
                 } else {
-                    Constants.alert(FeedActivity.this, msg);
+                    Constants.alert(FeedShowActivity.this, msg);
                 }
             }
         };
@@ -162,7 +162,7 @@ public class FeedActivity extends Activity {
     }
 
     private void openItem(int position) {
-        Intent intent = new Intent(this, ItemActivity.class);
+        Intent intent = new Intent(this, ItemShowActivity.class);
 
         String title = lvItems.get(position).get("title");
         String unread = getString(R.string.lbl_unread);

@@ -3,6 +3,7 @@
     <string name="app_name">Rss Reader</string>
 
     <string name="lbl_unread">Unread</string>
+    <string name="lbl_feed_hint">Please input the rss url or scan qr code picture.</string>
 
     <string name="activity_name_settings">Settings</string>
 
@@ -27,6 +28,8 @@
     <string name="btn_no">No</string>
     <string name="btn_on">Enable</string>
     <string name="btn_off">Close</string>
+    <string name="btn_scan">Scan</string>
+    <string name="btn_add">Add</string>
 
     <string name="help_title">Help title</string>
     <string name="help_body">Help content</string>

@@ -28,10 +28,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        for (String name : new String[]{"logs", "settings", "feeds", "items"}) {
-            db.execSQL("DROP TABLE IF EXISTS " + name);
-        }
-        onCreate(db);
+//        for (String name : new String[]{"logs", "settings", "feeds", "items"}) {
+//            db.execSQL("DROP TABLE IF EXISTS " + name);
+//        }
+//        onCreate(db);
     }
 
     @Override

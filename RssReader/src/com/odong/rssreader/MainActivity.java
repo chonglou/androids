@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case R.id.action_add_feed:
-                onAddFeed();
+                startActivity(new Intent(this, FeedAddActivity.class));
                 break;
             case R.id.action_help:
                 onMessage(R.string.help_title, R.string.help_body, R.drawable.ic_action_about);
@@ -92,63 +92,6 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
-    private void onAddFeed() {
-        final EditText input = new EditText(this);
-        new AlertDialog.Builder(this)
-                .setMessage(R.string.dlg_addFeed_title)
-                .setView(input)
-                .setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        final Handler handler = new Handler() {
-                            @Override
-                            public void handleMessage(Message message) {
-                                String msg = (String) message.obj;
-                                if (msg.equals(Constants.SUCCESS)) {
-                                    refreshFeedList();
-                                } else {
-                                    Constants.alert(MainActivity.this, msg);
-                                }
-                            }
-                        };
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Message msg = handler.obtainMessage();
-                                try {
-                                    Rss rss = new Rss(input.getText().toString());
-                                    Storage s = Storage.getInstance();
-                                    int fid = s.addFeed(rss.getChannel());
-                                    s.addItems(fid, rss.getItemList());
-                                    msg.obj = Constants.SUCCESS;
-                                } catch (XmlPullParserException e) {
-                                    e.printStackTrace();
-                                    msg.obj = getString(R.string.exception_xml_parser);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                    msg.obj = getString(R.string.exception_network);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                    msg.obj = e.getMessage();
-                                }
-
-                                handler.sendMessage(msg);
-                            }
-                        }).start();
-
-
-                    }
-                })
-                .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-                .show();
-
-    }
 
 
     private void initFeedList() {
@@ -164,7 +107,7 @@ public class MainActivity extends Activity {
         lvFeeds.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, FeedActivity.class);
+                Intent intent = new Intent(MainActivity.this, FeedShowActivity.class);
                 intent.putExtra("id", lvFeedIds.get(position));
                 intent.putExtra("title", lvFeedItems.get(position).get("title"));
                 startActivity(intent);

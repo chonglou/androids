@@ -3,6 +3,7 @@
     <string name="app_name">RSS阅读器</string>
 
     <string name="lbl_unread">未读</string>
+    <string name="lbl_feed_hint">请输入RSS地址或扫描二维码</string>
 
     <string name="activity_name_settings">设置</string>
 
@@ -27,6 +28,8 @@
     <string name="btn_no">否</string>
     <string name="btn_on">开启</string>
     <string name="btn_off">关闭</string>
+    <string name="btn_scan">扫描</string>
+    <string name="btn_add">添加</string>
 
     <string name="help_title">帮助信息</string>
     <string name="help_body">帮助内容</string>
