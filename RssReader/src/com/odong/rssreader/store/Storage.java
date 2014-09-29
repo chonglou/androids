@@ -65,6 +65,12 @@ public class Storage {
         return cur.moveToFirst() ? cur.getInt(0) : null;
     }
 
+    public void delFeed(int id) {
+        SQLiteDatabase db = getDb(true);
+        db.delete("feeds", "id = ? ", new String[]{Integer.toString(id)});
+        db.delete("items", "feed = ? ", new String[]{Integer.toString(id)});
+    }
+
     public int addFeed(Rss.Channel channel) {
         SQLiteDatabase db = getDb(true);
         ContentValues cv = new ContentValues();

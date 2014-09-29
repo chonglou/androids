@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +18,9 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import com.odong.rssreader.store.Storage;
 import com.odong.rssreader.utils.Rss;
+import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,19 +100,52 @@ public class MainActivity extends Activity {
                 .setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+                        final Handler handler = new Handler() {
+                            @Override
+                            public void handleMessage(Message message) {
+                                String msg = (String) message.obj;
+                                if (msg.equals("SUCCESS")) {
+                                    refreshFeedList();
+                                } else {
+                                    new AlertDialog.Builder(MainActivity.this).setTitle(R.string.dlg_error_title)
+                                            .setMessage(msg)
+                                            .setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                }
+                                            })
+                                            .setIcon(android.R.drawable.ic_dialog_alert)
+                                            .show();
+                                }
+                            }
+                        };
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
+                                Message msg = handler.obtainMessage();
                                 try {
                                     Rss rss = new Rss(input.getText().toString());
                                     Storage store = new Storage(getApplicationContext());
                                     int fid = store.addFeed(rss.getChannel());
                                     //store.addItems(fid, rss.getItemList());
+                                    msg.obj = "SUCCESS";
+                                } catch (XmlPullParserException e) {
+                                    msg.obj = getString(R.string.exception_xml_parser);
+                                } catch (IOException e) {
+                                    msg.obj = getString(R.string.exception_network);
                                 } catch (Exception e) {
                                     e.printStackTrace();
+
+                                    msg.obj = e.getMessage();
+
                                 }
+
+                                handler.sendMessage(msg);
                             }
                         }).start();
+
 
                     }
                 })
@@ -123,7 +160,7 @@ public class MainActivity extends Activity {
     }
 
 
-    private void initFeedList(){
+    private void initFeedList() {
 
         ListView lvFeeds = (ListView) findViewById(R.id.lv_feeds);
         lvFeedItems = new ArrayList<Map<String, String>>();
@@ -141,10 +178,37 @@ public class MainActivity extends Activity {
             }
         });
 
+        lvFeeds.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle(R.string.dlg_delete_title)
+                        .setPositiveButton(R.string.btn_yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                Storage s = new Storage(getApplicationContext());
+                                s.delFeed(lvFeedIds.get(position));
+                                refreshFeedList();
+                            }
+                        })
+                        .setNegativeButton(R.string.btn_no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+                return true;
+            }
+        });
+
         refreshFeedList();
     }
 
-    private void refreshFeedList(){
+    private void refreshFeedList() {
         lvFeedItems.clear();
         lvFeedIds.clear();
 
