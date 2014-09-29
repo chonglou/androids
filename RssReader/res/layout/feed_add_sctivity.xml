@@ -7,7 +7,7 @@
 
 
     <EditText
-            android:id="@+id/feed_add_input"
+            android:id="@+id/feed_add_content"
             android:lines="6"
             android:minLines="4"
             android:hint="@string/lbl_feed_hint"
@@ -21,12 +21,14 @@
             android:layout_height="wrap_content">
 
         <Button
+                android:id="@+id/btn_feed_scan"
                 android:drawableLeft="@drawable/ic_action_crop"
                 android:text="@string/btn_scan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <Button
+                android:id="@+id/btn_feed_add"
                 android:layout_alignParentRight="true"
                 android:drawableLeft="@drawable/ic_action_new"
                 android:text="@string/btn_add"
