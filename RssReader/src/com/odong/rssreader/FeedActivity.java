@@ -6,15 +6,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
+import android.widget.*;
 import com.odong.rssreader.store.Storage;
 import com.odong.rssreader.utils.Rss;
 import org.xmlpull.v1.XmlPullParserException;
@@ -59,6 +57,7 @@ public class FeedActivity extends Activity {
         setTitle(intent.getStringExtra("title"));
 
         initItemList();
+
     }
 
     private void onRefresh() {
@@ -67,7 +66,7 @@ public class FeedActivity extends Activity {
             public void handleMessage(Message message) {
                 String msg = (String) message.obj;
                 if (msg.equals(Constants.SUCCESS)) {
-                    refreshItemList(0);
+                    refreshItemList();
                 } else {
                     Constants.alert(FeedActivity.this, msg);
                 }
@@ -127,7 +126,37 @@ public class FeedActivity extends Activity {
             }
         });
 
-        refreshItemList(0);
+        lv.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
+                    if(view.getLastVisiblePosition() == (view.getCount()-1)){
+                        loadMore();
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+
+
+        callback = new Storage.ItemCallback() {
+            @Override
+            public void run(int id, String link, String title, String description, String pubDate, boolean read) {
+                lvIds.add(id);
+                lvLinks.add(link);
+
+                Map<String, String> v = new HashMap<String, String>();
+                v.put("title", read ? title : "[" + getString(R.string.lbl_unread) + "]" + title);
+                v.put("summary", Html.fromHtml(description).toString());
+                lvItems.add(v);
+            }
+        };
+
+        refreshItemList();
     }
 
     private void openItem(int position) {
@@ -144,33 +173,28 @@ public class FeedActivity extends Activity {
         startActivity(intent);
     }
 
-    private void refreshItemList(int offset) {
+    private void refreshItemList() {
         lvItems.clear();
         lvLinks.clear();
         lvIds.clear();
 
         Storage storage = Storage.getInstance();
-
-        storage.listItem(feedId, offset, Constants.ITEM_PAGE, new Storage.ItemCallback() {
-            @Override
-            public void run(int id, String link, String title, String description, String pubDate, boolean read) {
-                lvIds.add(id);
-                lvLinks.add(link);
-
-                Map<String, String> v = new HashMap<String, String>();
-                v.put("title", read ? title : "[" + getString(R.string.lbl_unread) + "]" + title);
-                v.put("summary", Html.fromHtml(description).toString());
-                lvItems.add(v);
-            }
-        });
-
+        storage.listItem(feedId, 0, Constants.ITEM_PAGE, callback);
         lvItemAdapter.notifyDataSetChanged();
     }
 
+    private void loadMore(){
+        int offset = lvIds.get(lvIds.size()-1);
+        Log.d("RSS READER", "加载"+offset);
+        Storage storage = Storage.getInstance();
+        storage.listItem(feedId, offset, Constants.ITEM_PAGE, callback);
+        lvItemAdapter.notifyDataSetChanged();
+    }
     private int feedId;
 
     private List<Map<String, String>> lvItems;
     private List<String> lvLinks;
     private List<Integer> lvIds;
     private SimpleAdapter lvItemAdapter;
+    private Storage.ItemCallback callback;
 }

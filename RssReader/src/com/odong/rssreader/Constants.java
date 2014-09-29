@@ -36,7 +36,7 @@ public class Constants {
     }
 
     public static final String SUCCESS = "success";
-    public static final int ITEM_PAGE = 20;
+    public static final int ITEM_PAGE = 5;
     public static final int[] SETTINGS_REFRESH_ITEMS = {10 * 60, 30 * 60, 60 * 60, 6 * 60 * 60, 12 * 60 * 60, 24 * 60 * 60};
     public static final int[] SETTINGS_KEEP_ITEMS = {50, 200, 500, 1000};
 }

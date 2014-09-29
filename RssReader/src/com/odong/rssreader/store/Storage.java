@@ -88,8 +88,11 @@ public class Storage {
     }
 
     public void listItem(int feed, int offset, int page, ItemCallback callback) {
+        if(offset==0){
+            offset = 1024*1024*10;
+        }
         SQLiteDatabase db = getDb(false);
-        Cursor cur = db.query("items", new String[]{"id", "link", "title", "description", "pubDate", "read"}, "feed = ?", new String[]{Integer.toString(feed)}, null, null, "id DESC LIMIT " + page + " OFFSET " + offset);
+        Cursor cur = db.query("items", new String[]{"id", "link", "title", "description", "pubDate", "read"}, "feed = ? AND id < ?", new String[]{Integer.toString(feed), Integer.toString(offset)}, null, null, "id DESC", Integer.toString(page));
         try {
 
             while (cur.moveToNext()) {
