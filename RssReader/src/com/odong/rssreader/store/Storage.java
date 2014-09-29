@@ -7,7 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.odong.rssreader.Constants;
 import com.odong.rssreader.utils.Rss;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by flamen on 14-9-22.
@@ -28,6 +30,18 @@ public class Storage {
         SQLiteDatabase db = getDb(false);
         Cursor cur = db.query("items", new String[]{"id"}, "link = ? ", new String[]{link}, null, null, "id DESC");
         return cur.moveToFirst() ? cur.getInt(0) : null;
+    }
+
+    public interface FeedCallback {
+        void run(int id, String title, String description, String lastSync);
+    }
+
+    public void listFeed(FeedCallback callback) {
+        SQLiteDatabase db = getDb(false);
+        Cursor cur = db.query("feeds", new String[]{"id", "title", "description", "lastSync"}, null, null, null, null, "id DESC");
+        while (cur.moveToNext()) {
+            callback.run(cur.getInt(0), cur.getString(1), cur.getString(2), cur.getString(3));
+        }
     }
 
     public void addItems(int feed, List<Rss.Item> items) {

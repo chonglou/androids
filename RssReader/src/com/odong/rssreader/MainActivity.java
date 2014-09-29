@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import com.odong.rssreader.utils.Rss;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends Activity {
 
@@ -33,7 +35,7 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                onRefresh();
+                refreshFeedList();
                 break;
             case R.id.action_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
@@ -58,32 +60,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        Storage storage = new Storage(getApplicationContext());
-        storage.log("启动");
+        initFeedList();
 
-        lvFeeds = (ListView) findViewById(R.id.lv_feeds);
-
-        List<HashMap<String, String>> feeds = new ArrayList<HashMap<String, String>>();
-        //todo FEED列表
-        for (int i = 1; i < 10; i++) {
-            HashMap<String, String> v = new HashMap<String, String>();
-            v.put("title", "Title" + i);
-            v.put("summary", "Summary" + i);
-            feeds.add(v);
-        }
-
-        SimpleAdapter sa = new SimpleAdapter(this, feeds, R.layout.feed, new String[]{"title", "summary"}, new int[]{R.id.feed_title, R.id.feed_summary});
-
-        lvFeeds.setAdapter(sa);
-        //lv.setClickable(true);
-        lvFeeds.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object o = lvFeeds.getItemAtPosition(position);
-                //todo
-            }
-        });
     }
+
 
     @Override
     public void onBackPressed() {
@@ -108,10 +88,6 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
-    private void onRefresh() {
-
-    }
-
     private void onAddFeed() {
         final EditText input = new EditText(this);
         new AlertDialog.Builder(this)
@@ -127,7 +103,7 @@ public class MainActivity extends Activity {
                                     Rss rss = new Rss(input.getText().toString());
                                     Storage store = new Storage(getApplicationContext());
                                     int fid = store.addFeed(rss.getChannel());
-                                    store.addItems(fid, rss.getItemList());
+                                    //store.addItems(fid, rss.getItemList());
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -143,7 +119,52 @@ public class MainActivity extends Activity {
                     }
                 })
                 .show();
+
     }
 
-    private ListView lvFeeds;
+
+    private void initFeedList(){
+
+        ListView lvFeeds = (ListView) findViewById(R.id.lv_feeds);
+        lvFeedItems = new ArrayList<Map<String, String>>();
+        lvFeedIds = new ArrayList<Integer>();
+
+
+        lvFeedAdapter = new SimpleAdapter(this, lvFeedItems, R.layout.feed, new String[]{"title", "summary"}, new int[]{R.id.feed_title, R.id.feed_summary});
+        lvFeeds.setAdapter(lvFeedAdapter);
+
+        //lv.setClickable(true);
+        lvFeeds.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //todo
+            }
+        });
+
+        refreshFeedList();
+    }
+
+    private void refreshFeedList(){
+        lvFeedItems.clear();
+        lvFeedIds.clear();
+
+        Storage storage = new Storage(this);
+        storage.listFeed(new Storage.FeedCallback() {
+            @Override
+            public void run(int id, String title, String description, String lastSync) {
+                lvFeedIds.add(id);
+
+                Map<String, String> v = new HashMap<String, String>();
+                v.put("title", title);
+                v.put("summary", description);
+                lvFeedItems.add(v);
+            }
+        });
+
+        lvFeedAdapter.notifyDataSetChanged();
+    }
+
+    private List<Map<String, String>> lvFeedItems;
+    private SimpleAdapter lvFeedAdapter;
+    private List<Integer> lvFeedIds;
 }
