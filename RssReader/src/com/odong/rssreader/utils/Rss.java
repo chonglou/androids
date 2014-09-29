@@ -114,8 +114,6 @@ public class Rss {
         }
         parser.require(XmlPullParser.END_TAG, null, "item");
         itemList.add(item);
-        parser.nextTag();
-
     }
 
 

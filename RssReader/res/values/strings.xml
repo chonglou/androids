@@ -43,7 +43,7 @@
         <item>一天</item>
     </string-array>
 
-    <string name="sp_title_settings_keep">最近保留</string>
+    <string name="sp_title_settings_keep">显示最近</string>
     <string-array name="sp_items_settings_keep">
         <item>50条</item>
         <item>200条</item>

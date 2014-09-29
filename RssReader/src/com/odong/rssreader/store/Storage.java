@@ -22,25 +22,68 @@ public class Storage {
     public void log(String message) {
         ContentValues cv = new ContentValues();
         cv.put("message", message);
-        getDb(true).insert("logs", null, cv);
+        SQLiteDatabase db = getDb(true);
+        db.insert("logs", null, cv);
+        db.close();
     }
 
+    public String getFeedUrl(int id) {
+        SQLiteDatabase db = getDb(false);
+        Cursor cur = db.query("feeds", new String[]{"url"}, "id = ? ", new String[]{Integer.toString(id)}, null, null, "id DESC", "1");
+        try {
+
+            return cur.moveToFirst() ? cur.getString(0) : null;
+        } finally {
+            cur.close();
+            db.close();
+        }
+    }
 
     public Integer getItemId(String link) {
         SQLiteDatabase db = getDb(false);
-        Cursor cur = db.query("items", new String[]{"id"}, "link = ? ", new String[]{link}, null, null, "id DESC");
-        return cur.moveToFirst() ? cur.getInt(0) : null;
+
+        Cursor cur = db.query("items", new String[]{"id"}, "link = ? ", new String[]{link}, null, null, "id DESC", "1");
+        try {
+
+            return cur.moveToFirst() ? cur.getInt(0) : null;
+        } finally {
+            cur.close();
+            db.close();
+        }
     }
 
     public interface FeedCallback {
         void run(int id, String title, String description, String lastSync);
     }
 
+    public interface ItemCallback {
+        void run(int id, String link, String title, String description, String pubDate);
+    }
+
+    public void listItem(int feed, int offset, int page, ItemCallback callback) {
+        SQLiteDatabase db = getDb(false);
+        Cursor cur = db.query("items", new String[]{"id", "link", "title", "description", "pubDate"}, "feed = ?", new String[]{Integer.toString(feed)}, null, null, "id DESC LIMIT " + page + " OFFSET " + offset);
+        try {
+
+            while (cur.moveToNext()) {
+                callback.run(cur.getInt(0), cur.getString(1), cur.getString(2), cur.getString(3), cur.getString(4));
+            }
+        } finally {
+            cur.close();
+            db.close();
+        }
+    }
+
     public void listFeed(FeedCallback callback) {
         SQLiteDatabase db = getDb(false);
         Cursor cur = db.query("feeds", new String[]{"id", "title", "description", "lastSync"}, null, null, null, null, "id DESC");
-        while (cur.moveToNext()) {
-            callback.run(cur.getInt(0), cur.getString(1), cur.getString(2), cur.getString(3));
+        try {
+            while (cur.moveToNext()) {
+                callback.run(cur.getInt(0), cur.getString(1), cur.getString(2), cur.getString(3));
+            }
+        } finally {
+            cur.close();
+            db.close();
         }
     }
 
@@ -57,18 +100,25 @@ public class Storage {
                 db.insert("items", null, cv);
             }
         }
+        db.close();
     }
 
     public Integer getFeedId(String url) {
         SQLiteDatabase db = getDb(false);
-        Cursor cur = db.query("feeds", new String[]{"id"}, "url = ? ", new String[]{url}, null, null, "id DESC");
-        return cur.moveToFirst() ? cur.getInt(0) : null;
+        Cursor cur = db.query("feeds", new String[]{"id"}, "url = ? ", new String[]{url}, null, null, "id DESC", "1");
+        try {
+            return cur.moveToFirst() ? cur.getInt(0) : null;
+        } finally {
+            cur.close();
+            db.close();
+        }
     }
 
     public void delFeed(int id) {
         SQLiteDatabase db = getDb(true);
         db.delete("feeds", "id = ? ", new String[]{Integer.toString(id)});
         db.delete("items", "feed = ? ", new String[]{Integer.toString(id)});
+        db.close();
     }
 
     public int addFeed(Rss.Channel channel) {
@@ -85,6 +135,7 @@ public class Storage {
         } else {
             db.update("feeds", cv, "url = ?", new String[]{channel.url});
         }
+        db.close();
         return id;
     }
 
@@ -100,12 +151,18 @@ public class Storage {
         } else {
             db.update("settings", cv, "`key` = ?", new String[]{key});
         }
+        db.close();
     }
 
     public String get(String key) {
         SQLiteDatabase db = getDb(false);
-        Cursor cur = db.query("settings", new String[]{"val"}, "`key` = ? ", new String[]{key}, null, null, "id DESC");
-        return cur.moveToFirst() ? cur.getString(0) : null;
+        Cursor cur = db.query("settings", new String[]{"val"}, "`key` = ? ", new String[]{key}, null, null, "id DESC", "1");
+        try {
+            return cur.moveToFirst() ? cur.getString(0) : null;
+        } finally {
+            cur.close();
+            db.close();
+        }
 
     }
 

@@ -104,19 +104,10 @@ public class MainActivity extends Activity {
                             @Override
                             public void handleMessage(Message message) {
                                 String msg = (String) message.obj;
-                                if (msg.equals("SUCCESS")) {
+                                if (msg.equals(Constants.SUCCESS)) {
                                     refreshFeedList();
                                 } else {
-                                    new AlertDialog.Builder(MainActivity.this).setTitle(R.string.dlg_error_title)
-                                            .setMessage(msg)
-                                            .setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-
-                                                }
-                                            })
-                                            .setIcon(android.R.drawable.ic_dialog_alert)
-                                            .show();
+                                    Constants.alert(MainActivity.this, msg);
                                 }
                             }
                         };
@@ -129,10 +120,12 @@ public class MainActivity extends Activity {
                                     Storage store = new Storage(getApplicationContext());
                                     int fid = store.addFeed(rss.getChannel());
                                     store.addItems(fid, rss.getItemList());
-                                    msg.obj = "SUCCESS";
+                                    msg.obj = Constants.SUCCESS;
                                 } catch (XmlPullParserException e) {
+                                    e.printStackTrace();
                                     msg.obj = getString(R.string.exception_xml_parser);
                                 } catch (IOException e) {
+                                    e.printStackTrace();
                                     msg.obj = getString(R.string.exception_network);
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -167,7 +160,6 @@ public class MainActivity extends Activity {
         lvFeedAdapter = new SimpleAdapter(this, lvFeedItems, R.layout.list_item, new String[]{"title", "summary"}, new int[]{R.id.item_title, R.id.item_summary});
         lvFeeds.setAdapter(lvFeedAdapter);
 
-        //lv.setClickable(true);
         lvFeeds.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
