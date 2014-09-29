@@ -31,10 +31,10 @@
     <string name="btn_scan">Scan</string>
     <string name="btn_add">Add</string>
 
-    <string name="help_title">Help title</string>
-    <string name="help_body">Help content</string>
-    <string name="about_title">About title</string>
-    <string name="about_body">About content</string>
+    <string name="help_title">Help Center</string>
+    <string name="help_body">You can input rss url by scan qr code picture(Can be generate at http://www.0-dong.com/qr).</string>
+    <string name="about_title">About Me</string>
+    <string name="about_body">This software open source(https://github.com/chonglou/androids/tree/master/RssReader). If you have any question, please email me: itpkg8@gmail.com </string>
 
     <string name="settings_notice">Notice</string>
 

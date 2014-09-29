@@ -20,8 +20,9 @@ Android APP项目
  * https://aur.archlinux.org/packages/an/android-sdk-build-tools/android-sdk-build-tools.tar.gz
 
 #### .bashrc中增加
-
-    export PATH=/opt/android-sdk/tools:$PATH
+    ANDROID_HOME=/opt/android-sdk
+    PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
+    export ANDROID_HOME PATH
 
 #### 创建项目
 	android sdk # 安装target
@@ -32,6 +33,11 @@ Android APP项目
  * android版本小于3.2 点击 设置->应用->开发
  * android本本大于4.0小于4.2 点击 设置->开发者选项
  * android版本大于4.2 开发者选项默认隐藏。如果需要显示，需要点击 设置->关于手机，并连续点击版本号7次，然后返回上一页才可以看到开发者选项。
+ * 创建文件/etc/udev/rules.d/51-android.rules(04e8是samsung厂商ID，替换成你自己的 http://developer.android.com/intl/zh-cn/tools/device.html#VendorIds)
+
+	SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="plugdev"
+
+ * 运行chmod a+r /etc/udev/rules.d/51-android.rules
 
 
 ### 模拟器
@@ -39,7 +45,12 @@ Android APP项目
     android avd # 创建并启动
 
 ### 调试
-		./install.sh RssReader
+		./install.sh RssReader # 调试RssReader
+		adb kill-server # 停止调试器
+
+### 编译release版
+	cd RssReader
+	ant release
 
 ### 常见问题
  * Failure [INSTALL_FAILED_ALREADY_EXISTS]
