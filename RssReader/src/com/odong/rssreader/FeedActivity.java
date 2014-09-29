@@ -107,16 +107,16 @@ public class FeedActivity extends Activity {
 
 
         lvItemAdapter = new SimpleAdapter(this, lvItems, R.layout.item_list_item, new String[]{"title", "summary"}, new int[]{R.id.item_list_item_title, R.id.item_list_item_summary});
-        lvItemAdapter.setViewBinder(new SimpleAdapter.ViewBinder() {
-            @Override
-            public boolean setViewValue(View view, Object data, String textRepresentation) {
-                if (view instanceof WebView) {
-                    ((WebView) view).loadData(textRepresentation, "text/html", null);
-                    return true;
-                }
-                return false;
-            }
-        });
+//        lvItemAdapter.setViewBinder(new SimpleAdapter.ViewBinder() {
+//            @Override
+//            public boolean setViewValue(View view, Object data, String textRepresentation) {
+//                if (view instanceof WebView) {
+//                    ((WebView) view).loadData(textRepresentation, "text/html", null);
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
         lv.setAdapter(lvItemAdapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -151,7 +151,7 @@ public class FeedActivity extends Activity {
 
                 Map<String, String> v = new HashMap<String, String>();
                 v.put("title", title);
-                v.put("summary", description);
+                v.put("summary", Html.fromHtml(description).toString());
                 lvItems.add(v);
             }
         });
