@@ -58,7 +58,7 @@ public class FeedAddActivity extends Activity {
                     public void handleMessage(Message message) {
                         String msg = (String) message.obj;
                         if (msg.equals(Constants.SUCCESS)) {
-                            startActivity(new Intent(FeedAddActivity.this, MainActivity.class));
+                            finish();
                         } else {
                             Constants.alert(FeedAddActivity.this, msg);
                         }

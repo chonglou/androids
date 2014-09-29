@@ -14,11 +14,8 @@ public class Constants {
     private Constants() {
     }
 
-    public static String now() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date();
-        return dateFormat.format(date);
-    }
+
+
 
     public static void alert(Context context, String message) {
 
@@ -35,8 +32,9 @@ public class Constants {
 
     }
 
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final String SUCCESS = "success";
-    public static final int ITEM_PAGE = 5;
+    public static final int ITEM_PAGE = 20;
     public static final int[] SETTINGS_REFRESH_ITEMS = {10 * 60, 30 * 60, 60 * 60, 6 * 60 * 60, 12 * 60 * 60, 24 * 60 * 60};
     public static final int[] SETTINGS_KEEP_ITEMS = {50, 200, 500, 1000};
 }

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,11 +14,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import com.odong.rssreader.store.Storage;
+import com.odong.rssreader.utils.Rss;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MainActivity extends Activity {
 
@@ -60,6 +59,7 @@ public class MainActivity extends Activity {
         Storage.setContext(this);
         initFeedList();
 
+        syncJob();
     }
 
 
@@ -71,6 +71,7 @@ public class MainActivity extends Activity {
                 .setPositiveButton(R.string.btn_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        syncTimer.cancel();
                         MainActivity.this.finish();
                     }
                 })
@@ -142,9 +143,10 @@ public class MainActivity extends Activity {
         lvFeedIds.clear();
 
         final Storage storage = Storage.getInstance();
+
         storage.listFeed(new Storage.FeedCallback() {
             @Override
-            public void run(int id, String title, String description, String lastSync) {
+            public void run(int id, String url, String title, String description, Date lastSync) {
                 lvFeedIds.add(id);
 
                 Map<String, String> v = new HashMap<String, String>();
@@ -158,7 +160,33 @@ public class MainActivity extends Activity {
         lvFeedAdapter.notifyDataSetChanged();
     }
 
+    private void syncJob(){
+        final Storage s = Storage.getInstance();
+        String space = s.get("refresh.space.index");
+
+        syncTimer = new Timer();
+        syncTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                s.listFeed(new Storage.FeedCallback() {
+                    @Override
+                    public void run(int id, String url, String title, String description, Date lastSync) {
+                        try {
+                            Rss rss = new Rss(url);
+                            s.addItems(id, rss.getItemList());
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }, 3000, (space == null ? 24*60*60 : Integer.parseInt(space))*1000);
+
+    }
+
     private List<Map<String, String>> lvFeedItems;
     private SimpleAdapter lvFeedAdapter;
     private List<Integer> lvFeedIds;
+    private Timer syncTimer;
 }

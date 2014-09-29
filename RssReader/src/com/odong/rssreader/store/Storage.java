@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.odong.rssreader.Constants;
 import com.odong.rssreader.utils.Rss;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -78,7 +80,7 @@ public class Storage {
     }
 
     public interface FeedCallback {
-        void run(int id, String title, String description, String lastSync);
+        void run(int id, String url, String title, String description, Date lastSync);
     }
 
     public interface ItemCallback {
@@ -104,12 +106,16 @@ public class Storage {
 
     public void listFeed(FeedCallback callback) {
         SQLiteDatabase db = getDb(false);
-        Cursor cur = db.query("feeds", new String[]{"id", "title", "description", "lastSync"}, null, null, null, null, "id DESC");
+        Cursor cur = db.query("feeds", new String[]{"id", "url", "title", "description", "lastSync"}, null, null, null, null, "id DESC");
         try {
             while (cur.moveToNext()) {
-                callback.run(cur.getInt(0), cur.getString(1), cur.getString(2), cur.getString(3));
+                callback.run(cur.getInt(0), cur.getString(1), cur.getString(2), cur.getString(3), Constants.dateFormat.parse(cur.getString(4)));
             }
-        } finally {
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+        finally {
             cur.close();
 
         }
@@ -128,6 +134,10 @@ public class Storage {
                 db.insert("items", null, cv);
             }
         }
+
+        cv.clear();
+        cv.put("lastSync", Constants.dateFormat.format(new Date()));
+        db.update("feeds", cv, "id = ?", new String[]{Integer.toString(feed)});
 
     }
 
@@ -154,7 +164,7 @@ public class Storage {
         ContentValues cv = new ContentValues();
         cv.put("title", channel.title);
         cv.put("description", channel.description);
-        cv.put("lastSync", Constants.now());
+        cv.put("lastSync", Constants.dateFormat.format(new Date()));
 
         Integer id = getFeedId(channel.url);
         if (id == null) {
