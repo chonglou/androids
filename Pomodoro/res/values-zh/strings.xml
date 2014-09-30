@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">番茄钟</string>
+    <string name="app_name">番茄工作法</string>
 
-    <string name="lbl_task_status">%1$d 个番茄 \n定时器: %2$d 分钟 \n短暂休息: %3$d 分钟 \n长休息: %4$d 分钟</string>
+    <string name="lbl_next_event">距离下一个 %1$s：</string>
+    <string name="lbl_task">任务</string>
+    <string name="lbl_break">休息</string>
+
+
+    <string name="lbl_current_settings">
+        &lt;b>&lt;i>&lt;u> 当前配置: &lt;/u>&lt;/i>&lt;/b> &lt;br>
+        番茄: %1$d 个  &lt;br>
+        定时器: %2$d 分钟 &lt;br>
+        短休息: %3$d 分钟 &lt;br>
+        长休息: %4$d 分钟
+    </string>
 
     <string name="action_settings">设置</string>
     <string name="action_help">帮助</string>
@@ -12,6 +23,8 @@
 
     <string name="btn_yes">是</string>
     <string name="btn_no">否</string>
+    <string name="btn_start">开始</string>
+    <string name="btn_stop">停止</string>
 
     <string name="sp_title_settings_tasks">任务个数</string>
     <string name="sp_title_settings_timer">定时器</string>
@@ -57,6 +70,6 @@
 这一时间管理技术的本质目的是减小内生和外在的干扰对意识流的影响。一个单位的番茄工作时不可再细分。当在番茄工作时中被打断的情况下，只可能有两种情况：干扰的活动被推迟（知悉 - 协商 - 计划 - 收回），或者当前的番茄工作时废弃，必须重新开始。
     </string>
     <string name="about_title">关于我们</string>
-    <string name="about_body">本软件开源 代码在：https://github.com/chonglou/androids/tree/master/Pomodoro。联系邮箱：itpkg8@gmail.com</string>
+    <string name="about_body">本软件开源 代码在：https://github.com/chonglou/androids/tree/master/Pomodoro。\n联系邮箱：itpkg8@gmail.com</string>
 
 </resources>

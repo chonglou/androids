@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Pomodoro Clock</string>
+    <string name="app_name">Pomodoro Technique</string>
 
-    <string name="lbl_task_status">%1$d pomodori \nTimer: %2$d minutes \nShort Break: %3$d minutes \nLonger Break: %4$d minutes</string>
+    <string name="lbl_next_event">Next %1$s:</string>
+    <string name="lbl_clock">%1$02d:%2$02d:%3$02d</string>
+    <string name="lbl_task">Task</string>
+    <string name="lbl_break">Break</string>
 
+    <string name="lbl_current_settings">
+        &lt;b>&lt;i>&lt;u> Settings: &lt;/u>&lt;/i>&lt;/b> &lt;br>
+        Pomodori: %1$d  &lt;br>
+        Timer: %2$d minutes &lt;br>
+        Short Break: %3$d minutes &lt;br>
+        Longer Break: %4$d minutes
+    </string>
 
     <string name="action_settings">Settings</string>
     <string name="action_help">Help</string>
@@ -13,6 +23,8 @@
 
     <string name="btn_yes">Yes</string>
     <string name="btn_no">No</string>
+    <string name="btn_start">Start</string>
+    <string name="btn_stop">Stop</string>
 
     <string name="sp_title_settings_tasks">Tasks</string>
     <string name="sp_title_settings_timer">Timer</string>
@@ -57,6 +69,6 @@ For the purposes of the technique, "pomodoro" refers to the interval of time spe
 An essential aim of the technique is to reduce the impact of internal and external interruptions on focus and flow. A pomodoro is indivisible. When interrupted during a pomodoro either the other activity must be recorded and postponed (inform – negotiate – schedule – call back) or the pomodoro must be abandoned.
     </string>
     <string name="about_title">About Me</string>
-    <string name="about_body">This software open source(https://github.com/chonglou/androids/tree/master/Pomodoro). If you have any question, please email me: itpkg8@gmail.com </string>
+    <string name="about_body">This software open source(https://github.com/chonglou/androids/tree/master/Pomodoro). \nIf you have any question, please email me: itpkg8@gmail.com </string>
 
 </resources>

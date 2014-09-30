@@ -34,7 +34,7 @@
     <string name="help_title">帮助信息</string>
     <string name="help_body">RSS地址可以扫描二维码输入，在 http://www.0-dong.com/qr 页面可以生成。可为中国大陆地区用户提供代理服务。</string>
     <string name="about_title">关于我们</string>
-    <string name="about_body">本软件开源 代码在：https://github.com/chonglou/androids/tree/master/RssReader。联系邮箱：itpkg8@gmail.com</string>
+    <string name="about_body">本软件开源 代码在：https://github.com/chonglou/androids/tree/master/RssReader。\n联系邮箱：itpkg8@gmail.com</string>
 
     <string name="settings_notice">消息通知</string>
 

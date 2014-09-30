@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -45,7 +46,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        refreshStatus();
+        setStatus();
+        onRefresh();
     }
 
     @Override
@@ -72,16 +74,25 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
-    private void refreshStatus(){
-        TextView status = (TextView)findViewById(R.id.tv_main_status);
+    private void setTextViewText(int id, int message, Object...args){
+        TextView status = (TextView)findViewById(id);
+        String text = String.format(getResources().getString(message),args);
+        status.setText(Html.fromHtml(text));
+    }
+
+    private void setStatus(){
         SharedPreferences sp = getPreferences(0);
-        status.setText(String.format(getResources().getString(R.string.lbl_task_status),
+        setTextViewText(R.id.tv_main_settings, R.string.lbl_current_settings,
                 Constants.ITEMS_TASK_COUNTER[sp.getInt(Constants.KEY_TASK_COUNTER, 1)],
                 Constants.ITEMS_TASK_TIMER[sp.getInt(Constants.KEY_TASK_TIMER, 1)],
                 Constants.ITEMS_TASK_SHORT_BREAK[sp.getInt(Constants.KEY_TASK_SHORT_BREAK, 1)],
                 Constants.ITEMS_TASK_LONGER_BREAK[sp.getInt(Constants.KEY_TASK_LONGER_BREAK, 1)]
-                ));
+                );
+    }
 
+    private void onRefresh(){
+        setTextViewText(R.id.tv_main_next_event, R.string.lbl_next_event, getString(R.string.lbl_task));
+        setTextViewText(R.id.tv_main_clock, R.string.lbl_clock, 0, 42, 56);
     }
 
 }
