@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">番茄工作法</string>
+    <string name="app_name">番茄钟</string>
+
+ <string name="action_settings">设置</string>
+    <string name="action_help">帮助</string>
+    <string name="action_about">关于</string>
+
+    <string name="dlg_exit_message">你确定要退出么？</string>
+
+    <string name="btn_yes">是</string>
+    <string name="btn_no">否</string>
+
+
+    <string name="help_title">帮助信息</string>
+    <string name="help_body">敬请关注更多功能实现(http://www.0-dong.com)。</string>
+    <string name="about_title">关于我们</string>
+    <string name="about_body">本软件开源 代码在：https://github.com/chonglou/androids/tree/master/Pomodoro。联系邮箱：itpkg8@gmail.com</string>
+
 </resources>
