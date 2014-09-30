@@ -11,6 +11,39 @@
     <string name="btn_yes">是</string>
     <string name="btn_no">否</string>
 
+    <string name="sp_title_settings_tasks">任务个数</string>
+    <string name="sp_title_settings_timer">定时器</string>
+    <string name="sp_title_settings_short_break">短暂休息</string>
+    <string name="sp_title_settings_longer_break">长休息</string>
+
+    <string-array name="sp_items_settings_tasks">
+        <item>3个</item>
+        <item>4个</item>
+        <item>5个</item>
+    </string-array>
+
+    <string-array name="sp_items_settings_timer">
+        <item>20 分钟</item>
+        <item>25 分钟</item>
+        <item>30 分钟</item>
+        <item>45 分钟</item>
+        <item>一小时</item>
+    </string-array>
+
+    <string-array name="sp_items_settings_short_break">
+        <item>2 分钟</item>
+        <item>3 分钟</item>
+        <item>5 分钟</item>
+        <item>10 分钟</item>
+    </string-array>
+
+    <string-array name="sp_items_settings_longer_break">
+        <item>10 分钟</item>
+        <item>15 分钟</item>
+        <item>20 分钟</item>
+        <item>30 分钟</item>
+        <item>45 分钟</item>
+    </string-array>
 
     <string name="help_title">帮助信息</string>
     <string name="help_body">敬请关注更多功能实现(http://www.0-dong.com)。</string>

@@ -12,7 +12,7 @@ import android.view.MenuItem;
 public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-         MenuInflater inflater = getMenuInflater();
+        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_actions, menu);
         return super.onCreateOptionsMenu(menu);
 
@@ -21,10 +21,10 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-             case R.id.action_settings:
+            case R.id.action_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
- case R.id.action_help:
+            case R.id.action_help:
                 onMessage(R.string.help_title, R.string.help_body, R.drawable.ic_action_about);
                 break;
             case R.id.action_about:
@@ -45,11 +45,10 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-         new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this)
                 .setMessage(R.string.dlg_exit_message)
                 .setCancelable(false)
-                .setPositiveButton(R.string.btn_yes, new DialogInterface.OnClickListener()
- {
+                .setPositiveButton(R.string.btn_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         MainActivity.this.finish();
@@ -60,7 +59,7 @@ public class MainActivity extends Activity {
 
     }
 
-     private void onMessage(int title, int body, int icon) {
+    private void onMessage(int title, int body, int icon) {
         Intent intent = new Intent(this, MessageActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("body", body);

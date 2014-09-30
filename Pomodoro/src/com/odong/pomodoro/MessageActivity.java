@@ -14,7 +14,7 @@ public class MessageActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.message_activity);
 
-           Intent intent = getIntent();
+        Intent intent = getIntent();
         setTitle(getString(intent.getIntExtra("title", R.string.app_name)));
         getActionBar().setIcon(intent.getIntExtra("icon", R.drawable.ic_launcher));
 
