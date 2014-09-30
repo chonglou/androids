@@ -2,12 +2,15 @@ package com.odong.pomodoro;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
     @Override
@@ -41,6 +44,8 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        refreshStatus();
     }
 
     @Override
@@ -65,6 +70,18 @@ public class MainActivity extends Activity {
         intent.putExtra("body", body);
         intent.putExtra("icon", icon);
         startActivity(intent);
+    }
+
+    private void refreshStatus(){
+        TextView status = (TextView)findViewById(R.id.tv_main_status);
+        SharedPreferences sp = getPreferences(0);
+        status.setText(String.format(getResources().getString(R.string.lbl_task_status),
+                Constants.ITEMS_TASK_COUNTER[sp.getInt(Constants.KEY_TASK_COUNTER, 1)],
+                Constants.ITEMS_TASK_TIMER[sp.getInt(Constants.KEY_TASK_TIMER, 1)],
+                Constants.ITEMS_TASK_SHORT_BREAK[sp.getInt(Constants.KEY_TASK_SHORT_BREAK, 1)],
+                Constants.ITEMS_TASK_LONGER_BREAK[sp.getInt(Constants.KEY_TASK_LONGER_BREAK, 1)]
+                ));
+
     }
 
 }

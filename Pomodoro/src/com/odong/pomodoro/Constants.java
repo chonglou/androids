@@ -13,7 +13,7 @@ public class Constants {
     public final static String KEY_TASK_LONGER_BREAK = "task.longer_break";
 
     public final static int[] ITEMS_TASK_COUNTER = {3,4,5};
-    public final static int[] ITEMS_TASK_TIMER = {20*60, 25*60, 30*60, 45*60, 60*60};
-    public final static int[] ITEMS_TASK_SHORT_BREAK = {2*60,3*60,5*60,10*60};
-    public final static int[] ITEMS_TASK_LONGER_BREAK = {10*60, 15*60, 20*60, 30*60, 45*60};
+    public final static int[] ITEMS_TASK_TIMER = {20, 25, 30, 45, 60};
+    public final static int[] ITEMS_TASK_SHORT_BREAK = {2,3,5,10};
+    public final static int[] ITEMS_TASK_LONGER_BREAK = {10, 15, 20, 30, 45};
 }

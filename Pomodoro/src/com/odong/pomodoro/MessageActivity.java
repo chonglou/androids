@@ -3,6 +3,7 @@ package com.odong.pomodoro;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
 /**
@@ -21,6 +22,7 @@ public class MessageActivity extends Activity {
 
         TextView content = (TextView) findViewById(R.id.message_content);
         content.setText(getString(intent.getIntExtra("body", R.string.app_name)));
+        content.setMovementMethod(ScrollingMovementMethod.getInstance());
 
     }
 }
