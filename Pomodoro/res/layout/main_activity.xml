@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
@@ -10,8 +9,7 @@
             android:id="@+id/tv_main_next_event"
             android:textSize="24sp"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content"            />
 
     <TextView
             android:id="@+id/tv_main_clock"
@@ -20,10 +18,12 @@
             android:textColor="@android:color/holo_purple"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tv_main_next_event"
             />
 
 
     <ToggleButton
+            android:id="@+id/btn_main_switcher"
             android:background="@drawable/on_off"
             android:textOn="@string/btn_stop"
             android:textOff="@string/btn_start"
@@ -33,11 +33,15 @@
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
 
+            android:layout_below="@id/tv_main_clock"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>
     <TextView
             android:id="@+id/tv_main_settings"
+            android:layout_below="@id/btn_main_switcher"
+
+            android:gravity="right"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>
-</LinearLayout>
+</RelativeLayout>
 

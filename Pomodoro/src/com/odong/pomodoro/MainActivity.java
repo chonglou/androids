@@ -66,6 +66,12 @@ public class MainActivity extends Activity {
 
     }
 
+    @Override
+    protected void onResume() {
+        setStatus();
+        super.onResume();
+    }
+
     private void onMessage(int title, int body, int icon) {
         Intent intent = new Intent(this, MessageActivity.class);
         intent.putExtra("title", title);
@@ -81,7 +87,7 @@ public class MainActivity extends Activity {
     }
 
     private void setStatus(){
-        SharedPreferences sp = getPreferences(0);
+        SharedPreferences sp = getSharedPreferences(Constants.STORAGE_SETTINGS_NAME, 0);
         setTextViewText(R.id.tv_main_settings, R.string.lbl_current_settings,
                 Constants.ITEMS_TASK_COUNTER[sp.getInt(Constants.KEY_TASK_COUNTER, 1)],
                 Constants.ITEMS_TASK_TIMER[sp.getInt(Constants.KEY_TASK_TIMER, 1)],

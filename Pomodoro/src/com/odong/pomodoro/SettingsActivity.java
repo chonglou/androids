@@ -31,13 +31,13 @@ public class SettingsActivity extends Activity {
 
         keep.setAdapter(adapter);
 
-        keep.setSelection(getPreferences(0).getInt(key, def));
+        keep.setSelection(getSharedPreferences(Constants.STORAGE_SETTINGS_NAME, 0).getInt(key, def));
 
         keep.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                SharedPreferences.Editor editor = getPreferences(0).edit();
+                SharedPreferences.Editor editor = getSharedPreferences(Constants.STORAGE_SETTINGS_NAME, 0).edit();
                 editor.putInt(key, position);
                 editor.commit();
             }

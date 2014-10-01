@@ -7,6 +7,7 @@ public class Constants {
     private Constants() {
     }
 
+    public final static String STORAGE_SETTINGS_NAME = "settings";
     public final static String KEY_TASK_COUNTER = "task.counter";
     public final static String KEY_TASK_TIMER = "task.timer";
     public final static String KEY_TASK_SHORT_BREAK = "task.short_break";
