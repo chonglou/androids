@@ -3,8 +3,11 @@
     <string name="app_name">番茄工作法</string>
 
     <string name="lbl_next_event">距离下一个 %1$s：</string>
+    <string name="lbl_clock">%1$02d:%2$02d:%3$02d</string>
     <string name="lbl_task">任务</string>
     <string name="lbl_break">休息</string>
+    <string name="lbl_done">完成！</string>
+    <string name="lbl_task_on_running">任务正在运行，请先停止。</string>
 
 
     <string name="lbl_current_settings">
@@ -20,11 +23,13 @@
     <string name="action_about">关于</string>
 
     <string name="dlg_exit_message">你确定要退出么？</string>
+    <string name="dlg_error_title">出错了!</string>
 
     <string name="btn_yes">是</string>
     <string name="btn_no">否</string>
     <string name="btn_start">开始</string>
     <string name="btn_stop">停止</string>
+    <string name="btn_ok">确定</string>
 
     <string name="sp_title_settings_tasks">任务个数</string>
     <string name="sp_title_settings_timer">定时器</string>

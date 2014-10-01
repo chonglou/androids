@@ -9,7 +9,7 @@
             android:id="@+id/tv_main_next_event"
             android:textSize="24sp"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"            />
+            android:layout_height="wrap_content"/>
 
     <TextView
             android:id="@+id/tv_main_clock"
@@ -27,6 +27,7 @@
             android:background="@drawable/on_off"
             android:textOn="@string/btn_stop"
             android:textOff="@string/btn_start"
+
             android:textSize="32sp"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="40dp"
@@ -36,6 +37,7 @@
             android:layout_below="@id/tv_main_clock"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>
+
     <TextView
             android:id="@+id/tv_main_settings"
             android:layout_below="@id/btn_main_switcher"

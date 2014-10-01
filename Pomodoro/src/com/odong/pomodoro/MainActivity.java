@@ -7,11 +7,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public class MainActivity extends Activity {
     @Override
@@ -26,7 +30,12 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
+                if(((ToggleButton)findViewById(R.id.btn_main_switcher)).isChecked()){
+                    Constants.alert(MainActivity.this, getString(R.string.lbl_task_on_running));
+                }
+                else {
+                    startActivity(new Intent(this, SettingsActivity.class));
+                }
                 break;
             case R.id.action_help:
                 onMessage(R.string.help_title, R.string.help_body, R.drawable.ic_action_about);
@@ -46,8 +55,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        tvClock = (TextView)findViewById(R.id.tv_main_clock);
+        tvNextEvent = (TextView)findViewById(R.id.tv_main_next_event);
+
         setStatus();
         onRefresh();
+
+        initSwitcher();
     }
 
     @Override
@@ -70,6 +84,31 @@ public class MainActivity extends Activity {
     protected void onResume() {
         setStatus();
         super.onResume();
+    }
+
+
+    private void initSwitcher(){
+        final CountDownTimer timer = new CountDownTimer(30*1000, 1000){
+            @Override
+            public void onTick(long millisUntilFinished) {
+                tvClock.setText(""+millisUntilFinished/1000);
+            }
+
+            @Override
+            public void onFinish() {
+                tvClock.setText(R.string.lbl_done);
+            }
+        };
+                ((ToggleButton) findViewById(R.id.btn_main_switcher)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    timer.start();
+                } else {
+                    timer.cancel();
+                }
+            }
+        });
     }
 
     private void onMessage(int title, int body, int icon) {
@@ -100,5 +139,8 @@ public class MainActivity extends Activity {
         setTextViewText(R.id.tv_main_next_event, R.string.lbl_next_event, getString(R.string.lbl_task));
         setTextViewText(R.id.tv_main_clock, R.string.lbl_clock, 0, 42, 56);
     }
+
+    private TextView tvNextEvent;
+    private TextView tvClock;
 
 }

@@ -6,6 +6,8 @@
     <string name="lbl_clock">%1$02d:%2$02d:%3$02d</string>
     <string name="lbl_task">Task</string>
     <string name="lbl_break">Break</string>
+    <string name="lbl_done">Done!</string>
+    <string name="lbl_task_on_running">Task is running now, please stop it first!</string>
 
     <string name="lbl_current_settings">
         &lt;b>&lt;i>&lt;u> Settings: &lt;/u>&lt;/i>&lt;/b> &lt;br>
@@ -20,11 +22,13 @@
     <string name="action_about">About Me</string>
 
     <string name="dlg_exit_message">Are you sure to quit?</string>
+    <string name="dlg_error_title">Error!</string>
 
     <string name="btn_yes">Yes</string>
     <string name="btn_no">No</string>
     <string name="btn_start">Start</string>
     <string name="btn_stop">Stop</string>
+    <string name="btn_ok">Ok</string>
 
     <string name="sp_title_settings_tasks">Tasks</string>
     <string name="sp_title_settings_timer">Timer</string>
