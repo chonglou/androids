@@ -39,7 +39,8 @@
     <string name="settings_notice">消息通知</string>
 
     <string name="sp_title_settings_refresh">刷新间隔</string>
-    <string-array name="sp_items_settings_refresh">
+    <integer name="sp_default_settings_refresh">86400</integer>
+    <string-array name="sp_itemTexts_settings_refresh">
         <item>10分钟</item>
         <item>半小时</item>
         <item>1小时</item>
@@ -47,12 +48,27 @@
         <item>12小时</item>
         <item>一天</item>
     </string-array>
+    <integer-array name="sp_itemValues_settings_refresh">
+        <item>600</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>21600</item>
+        <item>43200</item>
+        <item>86400</item>
+    </integer-array>
 
     <string name="sp_title_settings_keep">保存记录</string>
-    <string-array name="sp_items_settings_keep">
+    <integer name="sp_default_settings_keep">1000</integer>
+    <string-array name="sp_itemTexts_settings_keep">
         <item>50条</item>
         <item>200条</item>
         <item>500条</item>
         <item>1000条</item>
     </string-array>
+    <integer-array name="sp_itemValues_settings_keep">
+        <item>50</item>
+        <item>200</item>
+        <item>500</item>
+        <item>1000</item>
+    </integer-array>
 </resources>

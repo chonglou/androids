@@ -2,7 +2,6 @@ package com.odong.pomodoro;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,7 +11,6 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -30,10 +28,9 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                if(((ToggleButton)findViewById(R.id.btn_main_switcher)).isChecked()){
+                if (((ToggleButton) findViewById(R.id.btn_main_switcher)).isChecked()) {
                     Constants.alert(MainActivity.this, getString(R.string.lbl_task_on_running));
-                }
-                else {
+                } else {
                     startActivity(new Intent(this, SettingsActivity.class));
                 }
                 break;
@@ -55,8 +52,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        tvClock = (TextView)findViewById(R.id.tv_main_clock);
-        tvNextEvent = (TextView)findViewById(R.id.tv_main_next_event);
+        tvClock = (TextView) findViewById(R.id.tv_main_clock);
+        tvNextEvent = (TextView) findViewById(R.id.tv_main_next_event);
 
         setStatus();
         onRefresh();
@@ -87,11 +84,11 @@ public class MainActivity extends Activity {
     }
 
 
-    private void initSwitcher(){
-        final CountDownTimer timer = new CountDownTimer(30*1000, 1000){
+    private void initSwitcher() {
+        final CountDownTimer timer = new CountDownTimer(30 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                tvClock.setText(""+millisUntilFinished/1000);
+                tvClock.setText("" + millisUntilFinished / 1000);
             }
 
             @Override
@@ -99,7 +96,7 @@ public class MainActivity extends Activity {
                 tvClock.setText(R.string.lbl_done);
             }
         };
-                ((ToggleButton) findViewById(R.id.btn_main_switcher)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        ((ToggleButton) findViewById(R.id.btn_main_switcher)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -119,23 +116,23 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
-    private void setTextViewText(int id, int message, Object...args){
-        TextView status = (TextView)findViewById(id);
-        String text = String.format(getResources().getString(message),args);
+    private void setTextViewText(int id, int message, Object... args) {
+        TextView status = (TextView) findViewById(id);
+        String text = String.format(getResources().getString(message), args);
         status.setText(Html.fromHtml(text));
     }
 
-    private void setStatus(){
+    private void setStatus() {
         SharedPreferences sp = getSharedPreferences(Constants.STORAGE_SETTINGS_NAME, 0);
         setTextViewText(R.id.tv_main_settings, R.string.lbl_current_settings,
                 Constants.ITEMS_TASK_COUNTER[sp.getInt(Constants.KEY_TASK_COUNTER, 1)],
                 Constants.ITEMS_TASK_TIMER[sp.getInt(Constants.KEY_TASK_TIMER, 1)],
                 Constants.ITEMS_TASK_SHORT_BREAK[sp.getInt(Constants.KEY_TASK_SHORT_BREAK, 1)],
                 Constants.ITEMS_TASK_LONGER_BREAK[sp.getInt(Constants.KEY_TASK_LONGER_BREAK, 1)]
-                );
+        );
     }
 
-    private void onRefresh(){
+    private void onRefresh() {
         setTextViewText(R.id.tv_main_next_event, R.string.lbl_next_event, getString(R.string.lbl_task));
         setTextViewText(R.id.tv_main_clock, R.string.lbl_clock, 0, 42, 56);
     }

@@ -111,11 +111,9 @@ public class Storage {
             while (cur.moveToNext()) {
                 callback.run(cur.getInt(0), cur.getString(1), cur.getString(2), cur.getString(3), Constants.dateFormat.parse(cur.getString(4)));
             }
-        }
-        catch (ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             cur.close();
 
         }

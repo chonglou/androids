@@ -3,9 +3,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+            android:id="@+id/action_add_task"
+            android:icon="@drawable/ic_action_add_to_queue"
+            android:title="@string/action_add_task"
+            android:showAsAction="ifRoom"/>
+    <item
+            android:id="@+id/action_today"
+            android:icon="@drawable/ic_action_go_to_today"
+            android:title="@string/action_today"
+            android:showAsAction="ifRoom"/>
+    <item
+            android:id="@+id/action_list_task"
+            android:icon="@drawable/ic_action_collection"
+            android:title="@string/action_list_task"
+            android:showAsAction="ifRoom"/>
+    <item
             android:id="@+id/action_settings"
             android:icon="@drawable/ic_action_settings"
             android:title="@string/action_settings"
+            android:showAsAction="ifRoom"/>
+
+    <item
+            android:id="@+id/action_logs"
+            android:icon="@drawable/ic_action_view_as_list"
+            android:title="@string/action_logs"
             android:showAsAction="ifRoom"/>
 
     <item

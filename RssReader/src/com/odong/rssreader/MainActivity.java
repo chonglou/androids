@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -160,7 +159,7 @@ public class MainActivity extends Activity {
         lvFeedAdapter.notifyDataSetChanged();
     }
 
-    private void syncJob(){
+    private void syncJob() {
         final Storage s = Storage.getInstance();
         String space = s.get("refresh.space.index");
 
@@ -174,14 +173,13 @@ public class MainActivity extends Activity {
                         try {
                             Rss rss = new Rss(url);
                             s.addItems(id, rss.getItemList());
-                        }
-                        catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 });
             }
-        }, 3000, (space == null ? 24*60*60 : Integer.parseInt(space))*1000);
+        }, 500, (space == null ? 24 * 60 * 60 : Integer.parseInt(space)) * 1000);
 
     }
 

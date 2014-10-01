@@ -39,7 +39,8 @@
     <string name="settings_notice">Notice</string>
 
     <string name="sp_title_settings_refresh">Refresh every</string>
-    <string-array name="sp_items_settings_refresh">
+    <integer name="sp_default_settings_refresh">86400</integer>
+    <string-array name="sp_itemTexts_settings_refresh">
         <item>10 Minutes</item>
         <item>half an hour</item>
         <item>1 hour</item>
@@ -47,12 +48,27 @@
         <item>12 hours</item>
         <item>One day</item>
     </string-array>
+    <integer-array name="sp_itemValues_settings_refresh">
+        <item>600</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>21600</item>
+        <item>43200</item>
+        <item>86400</item>
+    </integer-array>
 
     <string name="sp_title_settings_keep">Keep</string>
-    <string-array name="sp_items_settings_keep">
+    <integer name="sp_default_settings_keep">1000</integer>
+    <string-array name="sp_itemTexts_settings_keep">
         <item>50 items</item>
         <item>200 items</item>
         <item>500 items</item>
         <item>1000 items</item>
     </string-array>
+    <integer-array name="sp_itemValues_settings_keep">
+        <item>50</item>
+        <item>200</item>
+        <item>500</item>
+        <item>1000</item>
+    </integer-array>
 </resources>
