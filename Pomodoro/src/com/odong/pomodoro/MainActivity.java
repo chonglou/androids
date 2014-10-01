@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import com.odong.pomodoro.utils.TaskQueue;
 
 public class MainActivity extends Activity {
     @Override
@@ -55,7 +56,6 @@ public class MainActivity extends Activity {
         tvClock = (TextView) findViewById(R.id.tv_main_clock);
         tvNextEvent = (TextView) findViewById(R.id.tv_main_next_event);
 
-        setStatus();
         onRefresh();
 
         initSwitcher();
@@ -79,7 +79,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onResume() {
-        setStatus();
+        refreshStatus();
         super.onResume();
     }
 
@@ -122,15 +122,27 @@ public class MainActivity extends Activity {
         status.setText(Html.fromHtml(text));
     }
 
-    private void setStatus() {
-        SharedPreferences sp = getSharedPreferences(Constants.STORAGE_SETTINGS_NAME, 0);
+    private void refreshStatus() {
+        SharedPreferences sp = getSharedPreferences(Constants.STORAGE_SETTINGS_NAME,0);
+//        sp.getInt(Constants.KEY_TASK_COUNTER, getResources().getInteger(R.integer.sp_default_settings_tasks));
+        TaskQueue.set(
+                sp.getInt(Constants.KEY_TASK_COUNTER, getResources().getInteger(R.integer.sp_default_settings_tasks)),
+                sp.getInt(Constants.KEY_TASK_TIMER, getResources().getInteger(R.integer.sp_default_settings_timer)),
+                sp.getInt(Constants.KEY_TASK_SHORT_BREAK, getResources().getInteger(R.integer.sp_default_settings_short_break)),
+                sp.getInt(Constants.KEY_TASK_LONGER_BREAK, getResources().getInteger(R.integer.sp_default_settings_longer_break))
+        );
+
+        TaskQueue tq = TaskQueue.getInstance();
+
         setTextViewText(R.id.tv_main_settings, R.string.lbl_current_settings,
-                Constants.ITEMS_TASK_COUNTER[sp.getInt(Constants.KEY_TASK_COUNTER, 1)],
-                Constants.ITEMS_TASK_TIMER[sp.getInt(Constants.KEY_TASK_TIMER, 1)],
-                Constants.ITEMS_TASK_SHORT_BREAK[sp.getInt(Constants.KEY_TASK_SHORT_BREAK, 1)],
-                Constants.ITEMS_TASK_LONGER_BREAK[sp.getInt(Constants.KEY_TASK_LONGER_BREAK, 1)]
+                tq.getSize(),
+                tq.getTimer(),
+                tq.getShortBreak(),
+                tq.getLongerBreak()
         );
     }
+
+
 
     private void onRefresh() {
         setTextViewText(R.id.tv_main_next_event, R.string.lbl_next_event, getString(R.string.lbl_task));

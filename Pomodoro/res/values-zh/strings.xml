@@ -37,7 +37,7 @@
 
 
     <string name="sp_title_settings_tasks">任务队列长度</string>
-    <integer name="sp_title_settings_tasks">1</integer>
+    <integer name="sp_default_settings_tasks">4</integer>
     <integer-array name="sp_itemValues_settings_tasks">
         <item>3</item>
         <item>4</item>
@@ -50,7 +50,7 @@
     </string-array>
 
     <string name="sp_title_settings_timer">定时器</string>
-    <integer name="sp_title_settings_timer">1</integer>
+    <integer name="sp_default_settings_timer">25</integer>
     <integer-array name="sp_itemValues_settings_timer">
         <item>20</item>
         <item>25</item>
@@ -58,7 +58,7 @@
         <item>45</item>
         <item>60</item>
     </integer-array>
-    <string-array name="sp_items_settings_timer">
+    <string-array name="sp_itemTexts_settings_timer">
         <item>20 分钟</item>
         <item>25 分钟</item>
         <item>30 分钟</item>
@@ -67,14 +67,14 @@
     </string-array>
 
     <string name="sp_title_settings_short_break">短暂休息</string>
-    <integer name="sp_title_settings_short_break">1</integer>
+    <integer name="sp_default_settings_short_break">3</integer>
     <integer-array name="sp_itemValues_settings_short_break">
         <item>2</item>
         <item>3</item>
         <item>5</item>
         <item>10</item>
     </integer-array>
-    <string-array name="sp_items_settings_short_break">
+    <string-array name="sp_itemTexts_settings_short_break">
         <item>2 分钟</item>
         <item>3 分钟</item>
         <item>5 分钟</item>
@@ -82,7 +82,7 @@
     </string-array>
 
     <string name="sp_title_settings_longer_break">长休息</string>
-    <integer name="sp_title_settings_longer_break">1</integer>
+    <integer name="sp_default_settings_longer_break">15</integer>
     <integer-array name="sp_itemValues_settings_longer_break">
         <item>10</item>
         <item>15</item>
@@ -90,7 +90,7 @@
         <item>30</item>
         <item>45</item>
     </integer-array>
-    <string-array name="sp_items_settings_longer_break">
+    <string-array name="sp_itemTexts_settings_longer_break">
         <item>10 分钟</item>
         <item>15 分钟</item>
         <item>20 分钟</item>

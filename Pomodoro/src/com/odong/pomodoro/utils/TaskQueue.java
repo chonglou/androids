@@ -9,14 +9,14 @@ import java.util.Queue;
  * Created by flamen on 14-10-1.
  */
 public class TaskQueue {
-    private static synchronized void set(int size, int timer, int shortBreak, int longerBreak) {
+    public static synchronized void set(int size, int timer, int shortBreak, int longerBreak) {
         instance.size = size;
         instance.timer = timer;
         instance.shortBreak = shortBreak;
         instance.longerBreak = longerBreak;
     }
 
-    private static synchronized TaskQueue getInstance() {
+    public static synchronized TaskQueue getInstance() {
         return instance;
     }
 
@@ -42,5 +42,19 @@ public class TaskQueue {
     private int timer;
     private int size;
 
+    public int getShortBreak() {
+        return shortBreak;
+    }
 
+    public int getLongerBreak() {
+        return longerBreak;
+    }
+
+    public int getTimer() {
+        return timer;
+    }
+
+    public int getSize() {
+        return size;
+    }
 }
