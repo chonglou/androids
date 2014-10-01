@@ -2,8 +2,15 @@
 <resources>
     <string name="app_name">Pomodoro Technique</string>
 
-    <string name="lbl_next_event">Next %1$s:</string>
+    <string name="hint_must_input">Not empty!</string>
+    <string name="hint_select_date">Select date</string>
+
+    <string name="lbl_need_input">Please input required information.</string>
+    <string name="lbl_task_title">Name:</string>
+    <string name="lbl_task_content">Details:</string>
+    <string name="lbl_task_todo">Todo:</string>
     <string name="lbl_clock">%1$02d:%2$02d:%3$02d</string>
+    <string name="lbl_date">%2$02d-%3$02d-%1$04d</string>
     <string name="lbl_task">Task</string>
     <string name="lbl_break">Break</string>
     <string name="lbl_done">Done!</string>
@@ -33,6 +40,8 @@
     <string name="btn_start">Start</string>
     <string name="btn_stop">Stop</string>
     <string name="btn_ok">Ok</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
 
 
     <string name="sp_title_settings_tasks">Tasks Queue Size</string>

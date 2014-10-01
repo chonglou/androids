@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  * Created by flamen on 14-9-30.
  */
@@ -32,4 +35,6 @@ public class Constants {
     public final static String KEY_TASK_TIMER = "task.timer";
     public final static String KEY_TASK_SHORT_BREAK = "task.short_break";
     public final static String KEY_TASK_LONGER_BREAK = "task.longer_break";
+
+    public static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 }

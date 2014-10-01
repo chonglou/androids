@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import com.odong.pomodoro.store.Storage;
 import com.odong.pomodoro.utils.TaskQueue;
 
 public class MainActivity extends Activity {
@@ -28,6 +29,9 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_add_task:
+                startActivity(new Intent(this, TaskAddActivity.class));
+                break;
             case R.id.action_settings:
                 if (((ToggleButton) findViewById(R.id.btn_main_switcher)).isChecked()) {
                     Constants.alert(MainActivity.this, getString(R.string.lbl_task_on_running));
@@ -53,12 +57,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        Storage.set(this);
+
         tvClock = (TextView) findViewById(R.id.tv_main_clock);
         tvNextEvent = (TextView) findViewById(R.id.tv_main_next_event);
 
-        onRefresh();
-
         initSwitcher();
+
     }
 
     @Override
@@ -145,7 +150,7 @@ public class MainActivity extends Activity {
 
 
     private void onRefresh() {
-        setTextViewText(R.id.tv_main_next_event, R.string.lbl_next_event, getString(R.string.lbl_task));
+        //setTextViewText(R.id.tv_main_next_event, R.string.lbl_next_event, getString(R.string.lbl_task));
         setTextViewText(R.id.tv_main_clock, R.string.lbl_clock, 0, 42, 56);
     }
 
