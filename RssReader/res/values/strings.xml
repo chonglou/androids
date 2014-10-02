@@ -3,7 +3,7 @@
     <string name="app_name">Rss Reader</string>
 
     <string name="lbl_unread">Unread</string>
-    <string name="lbl_feed_hint">Please input the rss url or scan qr code picture(Can be generate by http://www.0-dong.com/qr).</string>
+    <string name="lbl_feed_hint">Please input the rss url or scan qr code picture(Can be generate by http://www.0-dong.com/qr), a url per line.</string>
 
     <string name="activity_name_settings">Settings</string>
 

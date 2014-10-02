@@ -3,7 +3,7 @@
     <string name="app_name">RSS阅读器</string>
 
     <string name="lbl_unread">未读</string>
-    <string name="lbl_feed_hint">请输入RSS地址或扫描二维码(可以在 http://www.0-dong.com/qr 生成)</string>
+    <string name="lbl_feed_hint">请输入RSS地址或扫描二维码(可以在 http://www.0-dong.com/qr 生成)，每行一个。</string>
 
     <string name="activity_name_settings">设置</string>
 

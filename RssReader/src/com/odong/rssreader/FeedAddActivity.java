@@ -69,10 +69,12 @@ public class FeedAddActivity extends Activity {
                     public void run() {
                         Message msg = handler.obtainMessage();
                         try {
-                            Rss rss = new Rss(etContent.getText().toString());
-                            Storage s = Storage.getInstance();
-                            int fid = s.addFeed(rss.getChannel());
-                            s.addItems(fid, rss.getItemList());
+                            for (String url : etContent.getText().toString().split("\n")) {
+                                Rss rss = new Rss(url);
+                                Storage s = Storage.getInstance();
+                                int fid = s.addFeed(rss.getChannel());
+                                s.addItems(fid, rss.getItemList());
+                            }
                             msg.obj = Constants.SUCCESS;
                         } catch (XmlPullParserException e) {
                             e.printStackTrace();
